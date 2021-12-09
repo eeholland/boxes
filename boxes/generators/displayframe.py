@@ -24,7 +24,38 @@ class DisplayFrame(Boxes):
 
     def __init__(self):
         Boxes.__init__(self)
-        self.buildArgParser("x", "y", "h", "outside")
+        #self.buildArgParser("x", "y", "h", "outside")
+        self.argparser.add_argument(
+            "--signWidth",
+            type=int,
+            default=100,
+            help = "Width of item you want to display in mm."
+        )
+        self.argparser.add_argument(
+            "--signHeight",
+            type=int,
+            default=50,
+            help = "Height of item you want to display in mm."
+        )
+        self.argparser.add_argument(
+            "--signAngle",
+            type=int,
+            default=30,
+            help = "Angle at which item will be displayed in degrees."
+        )
+        self.argparser.add_argument(
+            "--pegDistance",
+            type=int,
+            default=50,
+            help = "Desired distance between front pegs of the frame in mm."
+        )
+        # self.argparser.add_argument(
+        #     "-- materialThickness",
+        #     type=int,
+        #     default=3,
+        #     help = "Thickness of material the frame will be made from in mm."
+        # )
+        
 
     def render(self):
 
@@ -32,14 +63,28 @@ class DisplayFrame(Boxes):
         #     self.sx = self.adjustSize(self.sx, False, False)
         #     self.sy = self.adjustSize(self.sy, False, False)
 
-        x = self.x
-        y = self.y
-        h = self.h
-        t = self.thickness
+        # x = self.x
+        # y = self.y
+        # h = self.h
+        # t = self.thickness
+
+        # // make it so I dont need to use self.WhateverVariable for everything
+        sWidth = self.signWidth
+        sHeight = self.signHeight
+        sAngle = self.signAngle
+        pDistance = self.pegDistance
+       # thickness = self.materialThickness
+
+        # // calculations for the variable dimensions of the frame
+        #slotWidth = thickness - 0.2032
+        #frameHeight = 0.75* sHeight * sin(sAngle)
 
 
-        # Inner walls
-        self.rectangularWall(x,y)
+
+        # // check to make sure the frame height is less than the sign height
+        
+        self.rectangularWall(sWidth,sHeight)
+
         # for i in range(len(self.sx) - 1):
         #     e = [edges.SlottedEdge(self, self.sy, slots=0.5 * h), "e", "e", "e"]
         #     self.rectangularWall(y, h, e, move="up")
